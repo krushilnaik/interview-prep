@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -9,8 +10,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="antialiased grid place-content-center w-screen h-screen bg-slate-900 text-white">
-        {children}
+      <body className="antialiased w-screen h-screen bg-slate-900 text-white grid grid-rows-[auto_1fr]">
+        <header className="h-12 w-full">
+          <div className="flex items-center h-full p-4 bg-white/5">
+            <Link href="/">Interview Prep</Link>
+          </div>
+        </header>
+        <main className="grid place-content-center h-full w-full">{children}</main>
       </body>
     </html>
   );
