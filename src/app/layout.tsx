@@ -16,7 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <Link href="/">Interview Prep</Link>
           </div>
         </header>
-        <main className="grid place-content-center h-full w-full">{children}</main>
+        <main className="h-full w-full">{children}</main>
       </body>
     </html>
   );

@@ -8,5 +8,12 @@ export const metadata: Metadata = {
 };
 
 export default function BehavioralPrepPage() {
-  return <Interviewer title={metadata.title as string} description={metadata.description as string} />;
+  return (
+    <Interviewer
+      title={metadata.title as string}
+      description={metadata.description as string}
+      questionPrompt=""
+      graderPrompt=""
+    />
+  );
 }

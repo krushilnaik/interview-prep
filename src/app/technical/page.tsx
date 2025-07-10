@@ -7,5 +7,12 @@ export const metadata: Metadata = {
 };
 
 export default function TechnicalPrepPage() {
-  return <Interviewer title={metadata.title as string} description={metadata.description as string} />;
+  return (
+    <Interviewer
+      title={metadata.title as string}
+      description={metadata.description as string}
+      questionPrompt=""
+      graderPrompt=""
+    />
+  );
 }
