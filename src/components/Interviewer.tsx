@@ -22,7 +22,7 @@ function Interviewer({ title, description, questionPrompt, graderPrompt }: Props
     await fetch("http://localhost:1234/v1/chat/completions", {
       method: "POST",
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: "qwen/qwen3-32b",
         messages: [{ role: "user", content: questionPrompt }],
       }),
     })
@@ -33,6 +33,24 @@ function Interviewer({ title, description, questionPrompt, graderPrompt }: Props
       })
       .catch(() => {
         setQuestion(`simulate question at date ${new Date().toLocaleTimeString()}`);
+      });
+  };
+
+  const gradeResponse = async () => {
+    await fetch("http://localhost:1234/v1/chat/completions", {
+      method: "POST",
+      body: JSON.stringify({
+        model: "qwen/qwen3-32b",
+        messages: [{ role: "user", content: graderPrompt }],
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const grade = data.choices[0].message.content;
+        console.log("Grade:", grade);
+      })
+      .catch(() => {
+        console.error("Failed to grade response");
       });
   };
 
