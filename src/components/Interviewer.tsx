@@ -78,7 +78,7 @@ function Interviewer({ title, description, questionPrompt, graderPrompt }: Props
         <p>{countdown !== -1 ? `Listening in ${countdown} second(s)` : "Idle"}</p>
         <p>Listening: {listening ? "Yes (press 's' to stop)" : "No"}</p>
         <p>Press spacebar to generate a new question</p>
-        <p>{transcript}</p>
+        <p className="max-w-3xl">{transcript}</p>
       </div>
     </div>
   );
