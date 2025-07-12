@@ -1,4 +1,5 @@
 import { Interviewer } from "@/components";
+import { TECHNICAL_GRADER_PROMPT, TECHNICAL_INTERVIEW_PROMPT } from "@/utils/prompts";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,8 +12,8 @@ export default function TechnicalPrepPage() {
     <Interviewer
       title={metadata.title as string}
       description={metadata.description as string}
-      questionPrompt=""
-      graderPrompt=""
+      questionPrompt={TECHNICAL_INTERVIEW_PROMPT}
+      graderPrompt={TECHNICAL_GRADER_PROMPT}
     />
   );
 }

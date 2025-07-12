@@ -1,4 +1,5 @@
 import { Interviewer } from "@/components";
+import { BEHAVIORAL_GRADER_PROMPT, BEHAVIORAL_INTERVIEW_PROMPT } from "@/utils/prompts";
 
 import { Metadata } from "next";
 
@@ -12,8 +13,8 @@ export default function BehavioralPrepPage() {
     <Interviewer
       title={metadata.title as string}
       description={metadata.description as string}
-      questionPrompt=""
-      graderPrompt=""
+      questionPrompt={BEHAVIORAL_INTERVIEW_PROMPT}
+      graderPrompt={BEHAVIORAL_GRADER_PROMPT}
     />
   );
 }

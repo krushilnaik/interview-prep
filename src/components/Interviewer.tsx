@@ -1,6 +1,7 @@
 "use client";
 
 import { useKeyPress } from "@/hooks";
+import { buildGrader } from "@/utils";
 import { useState } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
@@ -13,10 +14,11 @@ interface Props {
 
 function Interviewer({ title, description, questionPrompt, graderPrompt }: Props) {
   const [question, setQuestion] = useState("question goes here");
-  const { transcript, listening, resetTranscript } = useSpeechRecognition();
+  const { transcript, listening, resetTranscript, finalTranscript } = useSpeechRecognition();
   const [start, setStart] = useState(Date.now());
   const [stop, setStop] = useState(Date.now());
   const [countdown, setCountdown] = useState(-1);
+  const [grade, setGrade] = useState("");
 
   const generateQuestion = async () => {
     await fetch("http://localhost:1234/v1/chat/completions", {
@@ -41,13 +43,14 @@ function Interviewer({ title, description, questionPrompt, graderPrompt }: Props
       method: "POST",
       body: JSON.stringify({
         model: "qwen/qwen3-32b",
-        messages: [{ role: "user", content: graderPrompt }],
+        messages: [{ role: "user", content: buildGrader(question, finalTranscript, graderPrompt) }],
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        const grade = data.choices[0].message.content;
-        console.log("Grade:", grade);
+        // const grade = data.choices[0].message.content;
+        // console.log("Grade:", grade);
+        setGrade(data.choices[0].message.content);
       })
       .catch(() => {
         console.error("Failed to grade response");
@@ -97,6 +100,8 @@ function Interviewer({ title, description, questionPrompt, graderPrompt }: Props
         <p>Listening: {listening ? "Yes (press 's' to stop)" : "No"}</p>
         <p>Press spacebar to generate a new question</p>
         <p className="max-w-3xl">{transcript}</p>
+        <p>Response time: {((stop - start) / 1000).toFixed(2)} seconds</p>
+        <p>{grade}</p>
       </div>
     </div>
   );
